@@ -39,10 +39,20 @@
 ;(require 'trace)
 ;(trace mid)
 
-(hoge 134 1222 3)
-(fuga 134 1222 3)
-(hoge 5 2 3)
-(fuga 5 2 3)
-(hoge 1 2 13)
-(fuga 1 2 13)
-	  
+;(hoge 134 1222 3)
+;(fuga 134 1222 3)
+;(hoge 5 2 3)
+;(fuga 5 2 3)
+;(hoge 1 2 13)
+;(fuga 1 2 13)
+
+(define (piyo a b c)
+  (define (square x) (* x x))
+  (define (minimum x y) (if (< x y) x y))
+  (- 
+	(+ (square a) (square b) (square c))
+	(square (minimum a (minimum b c)))))
+
+(piyo 1 2 3)
+(piyo 6 2 3)
+(piyo 4 7 3)
