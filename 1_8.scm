@@ -1,0 +1,22 @@
+(define (cube x) (* x x x))
+(define (average x y)
+  (/ (+ x y) 2))
+(define (improve guess x)
+  (/ (+ (/ x (* guess guess)) (* 2 guess)) 3))
+(define (good-enough? guess x)
+  (< (abs (- guess
+             (improve guess x)))
+     0.0001))
+(define (cube-rt-iter guess x)
+  (if (good-enough? guess x)
+    guess
+    (cube-rt-iter (improve guess x)
+                  x)))
+(define (cube-rt x)
+  (cube-rt-iter 1.0 x))
+
+(cube-rt 8)
+(cube-rt 27)
+(cube-rt 1000)
+(cube-rt (cube 5))
+(cube-rt (cube 20))
