@@ -44,3 +44,8 @@
 (h 5)
 ;h(n) = 2^h(n-1) 
 ;h(0) = 0
+;
+;http://ja.wikipedia.org/wiki/テトレーション
+;h(0) = 0
+;によれば
+;h(n) = 2↑↑n
