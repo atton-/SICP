@@ -1,0 +1,95 @@
+\documentclass[10pt]{jarticle}
+
+\usepackage{verbatim}
+\usepackage{moreverb}
+
+\setlength{\textwidth}{179mm}
+\setlength{\textheight}{251mm}
+\setlength{\topmargin}{-2cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+
+\section{問題}
+
+\begin{equation}
+	\phi = \frac{(1 + \sqrt{5})}{2}
+\end{equation}
+
+として Fib(n)が $\frac{\phi^n}{\sqrt{5}}$ に最も近い整数であることを証明せよ。
+
+ヒント : $\psi = \frac{(1-\sqrt{5})}{2}$ とする。帰納方とFibonacci数の定義を用い、
+
+\begin{equation}
+	Fib(n) = \frac{(\phi^n - \psi^n)}{2}
+\end{equation}
+
+\section{解答}
+
+$ k \geq 2 $ の時を考える(0,1は定義されているので)
+
+$n = 2$ の時
+\begin{displaymath}
+	Fib(2) = Fib(1) + Fib(0)
+\end{displaymath}
+
+\begin{displaymath}
+	Fib(2) = 1 + 0 = 1
+\end{displaymath}
+
+$ n = k $ の時成立するとして $ n = k + 1$ の時を考える
+\begin{equation}
+	Fib(k+1) = Fib(k) + Fib(k-1)
+\end{equation}
+
+定義(2)より、Fib(k)とFib(k-1)は
+
+\begin{equation}
+	Fib(k+1) =  \frac{(\phi^k - \psi^k)}{2} +  \frac{(\phi^{k-1} - \psi^{k-1})}{2}
+\end{equation}
+
+\begin{displaymath}
+	Fib(k+1) =  \frac{\phi^k - \psi^k + \phi^{k-1} - \psi^{k-1}}{2}
+\end{displaymath}
+
+\begin{displaymath}
+	Fib(k+1) =  \frac{\phi^k + \phi^{k-1} - \psi^k  - \psi^{k-1}}{2}
+\end{displaymath}
+
+$\phi^{k-1} , \psi^{k-1}$ を括る
+
+\begin{equation}
+	Fib(k+1) =  \frac{\phi^{k-1}(\phi - 1) - \psi^{k-1}(\psi + 1)}{2}
+\end{equation}
+
+カッコの中を整理する
+
+\begin{displaymath}
+	Fib(k+1) =  \frac{\phi^{k-1}(\frac{1+\sqrt{5}}{2} + \frac{2}{2}) - \psi^{k-1}(\frac{1-\sqrt{5}}{2} + \frac{2}{2})}{2}
+\end{displaymath}
+
+\begin{equation}
+	Fib(k+1) =  \frac{\phi^{k-1}(\frac{3+\sqrt{5}}{2}) - \psi^{k-1}(\frac{3-\sqrt{5}}{2})}{2}
+\end{equation}
+
+ここで、$\phi^2$ と $\psi^2$を考える。
+
+\begin{equation}
+	\phi^2 = \left(\frac{1 + \sqrt{5}}{2}\right)^2 = \frac{1^2 + 2\sqrt{5} + \sqrt{5}^2}{2^2} = \frac{3 + \sqrt{5}}{2}
+\end{equation}
+
+\begin{equation}
+	\psi^2 = \left(\frac{1 - \sqrt{5}}{2}\right)^2 = \frac{1^2 - 2\sqrt{5} + (-\sqrt{5})^2}{2^2} = \frac{3 - \sqrt{5}}{2}
+\end{equation}
+
+(7)と(8)の値を(6)に代入して
+
+\begin{equation}
+	Fib(k+1) =  \frac{\phi^{k-1}(\phi^2) - \psi^{k-1}(\psi^2)}{2} = \frac{\phi^{k+1} - \psi^{k+1}}{2}
+\end{equation}
+
+となり、Fib(k+1)の定義が出てくるので、証明終了。
+
+
+\end{document} 
