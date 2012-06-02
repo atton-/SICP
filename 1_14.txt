@@ -1,1 +1,20 @@
 1.14の木構造はとりあえずMindMapで。FreeMind で開ける。
+
+計算量
+	n^k
+くらい？(kはコインの数)
+
+今回はkの数は5なので
+	n^5
+くらい
+
+cc 1 n = n
+で
+cc 2 n = (cc 1 n) + (cc 2 (- n (first-denomination 2)))
+cc 2 n = (cc 1 n) + (cc 2 (- n 5))
+なので (cc 2 n)は(cc 1 n)を(/ n (first-denomination 2))分呼ぶので、x^2くらい
+
+cc 3 n = (cc 2 n) + (cc 3 (- n (first-denomination 3)))
+cc 3 n = (cc 2 n) + (cc 3 10)
+なので (cc 3 n)は(cc 2 n)を(/ n (first-denomination))分呼ぶので、x^3くらい
+を繰り返すのでn^kくらいかな、と。
