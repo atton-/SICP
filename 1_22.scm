@@ -32,6 +32,11 @@
   (display " *** ")
   (display elapsed-time))
 
+(time-prime-test 3)
+(time-prime-test 4)
+(time-prime-test 5)
+
+
 ;自前定義
 
 (define (find-primes-iter num count)
@@ -51,10 +56,29 @@
 
 
 
-(time-prime-test 3)
-(time-prime-test 4)
-(time-prime-test 5)
-
-(find-primes-with-time 10 3)
-(find-primes-with-time 100 3)
 (find-primes-with-time 1000 3)
+(find-primes-with-time 10000 3)
+(find-primes-with-time 100000 3)
+(find-primes-with-time 1000000 3)
+
+;実行結果
+;gosh> 1009
+;1013
+;1019
+;fin#<time-duration 0.000046000>#<undef>
+;gosh> 10007
+;10009
+;10037
+;fin#<time-duration 0.000138000>#<undef>
+;gosh> 100003
+;100019
+;100043
+;fin#<time-duration 0.000332000>#<undef>
+;gosh> 1000003
+;1000033
+;1000037
+;fin#<time-duration 0.000736000>#<undef>
+;
+;sqrt(10) = 3.16227766017
+;なので、数が10倍になるとだいたい3倍前後の時間がかかっているか見てみる
+;だいたい3倍前後くらいに入ってるっぽいのでステップ数に比例していると言える
