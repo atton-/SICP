@@ -73,3 +73,22 @@
 (time-prime-test 1000003)
 (time-prime-test 1000033)
 (time-prime-test 1000037)
+
+;実行結果
+;1009 *** #<time-duration 0.000730000>#<undef>
+;1013 *** #<time-duration 0.000622000>#<undef>
+;1019 *** #<time-duration 0.000620000>#<undef>
+;10007 *** #<time-duration 0.100800000>#<undef>
+;10009 *** #<time-duration 0.103482000>#<undef>
+;10037 *** #<time-duration 0.101020000>#<undef>
+;100003 *** #<time-duration 15.176828000>#<undef>
+;100019 *** #<time-duration 14.333741000>#<undef>
+;100043 *** #<time-duration 15.030397000>#<undef>
+;1000003 *** #<time-duration 2428.398909000>#<undef>
+;1000033 *** #<time-duration 2293.739900000>#<undef>
+;1000037 *** #<time-duration 2734.410885000>#<undef>
+
+;やたら遅くなってる。
+;fast-exptでexp自体を求めるのは早いけど、reaminderで巨大な数を扱うことになるので遅い
+
+;参考 : http://swatmac.info/?p=478
