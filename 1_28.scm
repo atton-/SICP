@@ -44,19 +44,20 @@
 
 
 ;1.28なmiller-rabin-test
-(define (miller-rabin-test x n)
+(define (square-check x n)
   (and (not (= x 1))
 	   (not (= x (- n 1)))
 	   (= (remainder (square x) n) 1)))
 
+(define (miller-rabin-test x n)
+  (if (square-check x n)
+	0
+	(remainder (square x) n)))
+
 (define (expmod base exp m)
   (cond ((= exp 0) 1)
-		((even? exp)
-		 (if (miller-rabin-test (expmod base (/ exp 2) m) m)
-		   0
-		   (remainder (square (expmod base (/ exp 2) m)) m)))
-		(else
-		  (remainder (* base (expmod base (- exp 1) m)) m))))
+		((even? exp) (miller-rabin-test (expmod base (/ exp 2) m) m))
+		(else (remainder (* base (expmod base (- exp 1) m)) m))))
 
 (display "fermat-test use miller-rabin-test")
 (display "Cirmichel-number")
