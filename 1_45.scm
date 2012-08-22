@@ -26,7 +26,6 @@
   (lambda (x) (f (g x))))
 
 ;1.16なfast-expt
-
 (define (fast-expt b n)
   (define (even? n) (= (remainder n 2) 0))
   (define (square n) (* n n))
@@ -54,18 +53,43 @@
 ;http://wiki.drewhess.com/wiki/SICP_exercise_1.45
 ;するとlog_2(n)くらいらしいので
 
+
+;nより大きい2^kになるkを返すlog
+(define (log n)
+  (define (square x) (* x x))
+  (define (iter count)
+	(if (< n (fast-expt 2 count))
+	  count
+	  (iter (+ count 1))))
+  (iter 1))
+
+(log 7)
+(log 8)
+(log 9)
+
 ;log_2(n)回
 (define (n-root x n)
-  ;(fixed-point ((repeated average-damp (/ (log n) (log 2)))
-  (fixed-point ((repeated average-damp 9)
+  (fixed-point ((repeated average-damp (log n))
 				(lambda (y) (/ x (fast-expt y (- n 1)))))
 			   1.0))
 (n-root 100 2)
 (n-root 1000 3)
 (n-root 10000 4)
 (n-root 100000 5)
+(n-root 1000000 6)
+;gosh> 10.000005110362242
+;gosh> 10.000001344613787
+;gosh> 10.000005682245106
+;gosh> 10.000003715932646
+;gosh> 10.000001327778605
 
 (n-root 4 2)
 (n-root 8 3)
 (n-root 16 4)
 (n-root 32 5)
+(n-root 64 6)
+;gosh> 1.999993326908296
+;gosh> 2.000002163438156
+;gosh> 2.000005048018041
+;gosh> 2.000002548192768
+;gosh> 2.000002162317112
