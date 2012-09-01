@@ -1,8 +1,11 @@
 ;2.10な0を跨ぐ区間の除算
 
-;2.7な区間演算
-(define (make-interval a b) (cons a b))
+; make-interval時、上下関係がおかしかったらerrorって出すようにしてみる
+(define (make-interval lower upper)
+  (if (> lower upper) (display "error\n"))
+  (cons lower upper))
 
+;2.7な区間演算
 (define (mul-interval x y)
   (let ((p1 (* (lower-bound x) (lower-bound y)))
 		(p2 (* (lower-bound x) (upper-bound y)))
@@ -35,15 +38,19 @@
   (make-interval (/ 1.0 (upper-bound interval))
 				 (/ 1.0 (lower-bound interval))))
 
-(define plus-plus (inverse-interval (make-interval 5 15)))
-(define minus-minus (inverse-interval (make-interval -15 -5)))
-(define minus-plus (inverse-interval (make-interval -5 5)))
+(define plus-plus (make-interval 5 15))
+(define minus-minus (make-interval -15 -5))
+(define minus-plus (make-interval -5 5))
 
-(> (upper-bound plus-plus) (lower-bound plus-plus))
-(> (upper-bound minus-minus) (lower-bound minus-minus))
-(> (upper-bound minus-plus) (lower-bound minus-plus))
-;gosh> #t
-;gosh> #t
-;gosh> #f
+(define inverse-plus-plus (inverse-interval plus-plus))
+(define inverse-minus-minus (inverse-interval minus-minus))
+(define inverse-minus-plus (inverse-interval minus-plus))
+; inverse-minus-plus で errorが出る
 
-; ゼロを跨ぐ場合、intervalの上下関係がおかしくなる場合がある
+; ゼロを跨ぐ場合、逆数を取るとintervalの上下関係がおかしくなる場合がある
+(> (upper-bound inverse-plus-plus) (lower-bound inverse-plus-plus))
+(> (upper-bound inverse-minus-minus) (lower-bound inverse-minus-minus))
+(> (upper-bound inverse-minus-plus) (lower-bound inverse-minus-plus))
+; gosh> #t
+; gosh> #t
+; gosh> #f
