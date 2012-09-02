@@ -1,0 +1,30 @@
+2.13な 相対許容誤差が小さい場合の区間の積の誤差を表わす簡単な式
+
+参考 : http://sicp.naochan.com/memo.pl?p=%CC%E4%C2%EA2.13
+
+interval-A * interval-B だとして
+interval-Aの中央値はA、誤差はa
+interval-Bの中央値はB、誤差はb
+とすると
+
+interval-A * interval-B
+
+[(A - Aa),(A + Aa)] * [(B - Bb),(B + Bb)]
+[ (A - Aa) * (B - Bb) , (A + Aa) * (B + Bb) ]
+[ A(1 - a) * B(1 - b) , A(1 + a) * B(1 + b) ]
+[ AB(1 - a) * (1 - b) , AB(1 + a) * (1 + b) ]
+[ AB(1 - a - b + ab) , AB(1 + a + b + ab) ]
+[ AB(1 - (a + b) + ab) , AB(1 + (a + b) + ab) ]
+
+となって誤差は
+±(a+b)+ab
+かな、となったけど参考を見ると
+abは小さいので省略して
+
+a+b
+
+になるみたい。
+
+区間の積の誤差 = それぞれの区間の誤差を足す
+
+になるっぽい。
