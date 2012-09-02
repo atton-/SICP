@@ -39,16 +39,65 @@
 		 ; [+,+] x [-,-]
 		 ((and (< lower-y 0) (< upper-y 0))
 		  (make-interval (* upper-x lower-y) (* lower-x upper-y)))))
+	  ; [-,+] x [?,?]
+	  ((and (< lower-x 0) (> upper-x 0))
+	   (cond 
+		 ; [-,+] x [+,+]
+		 ((and (> lower-y 0) (> upper-y 0))
+		  (make-interval  (* lower-x upper-y) (* upper-x upper-y)))
+		 ; [-,+] x [-,+]
+		 ; [-, ] x [-, ] と [ ,+] x [ ,+] での大きさ比較は絶対値による
+		 ; [-, ] x [ ,+] と [ ,+] x [-, ] も絶対値による
+		 ((and (< lower-y 0) (> upper-y 0))
+		  (make-interval  (min (* lower-x upper-y) (* upper-x lower-y))
+						  (max (* lower-x lower-y) (* upper-x upper-y))))
+		 ; [-,+] x [-,-]
+		 ((and (< lower-y 0) (< upper-y 0))
+		  (make-interval (* upper-x lower-y) (* lower-x lower-y)))))
+	  ; [-,-] x [?,?]
+	  ((and (< lower-x 0) (< upper-x 0))
+	   (cond 
+		 ; [-,-] x [+,+]
+		 ((and (> lower-y 0) (> upper-y 0))
+		  (make-interval  (* lower-x upper-y) (* upper-x lower-y)))
+		 ; [-,-] x [-,+]
+		 ((and (< lower-y 0) (> upper-y 0))
+		  (make-interval  (* lower-x upper-y) (* lower-x lower-y)))
+		 ; [-,-] x [-,-]
+		 ((and (< lower-y 0) (< upper-y 0))
+		  (make-interval  (* upper-x upper-y) (* lower-x lower-y)))))
 	  (else (display "not implemented")))))
+
+
+; 確認
 
 (define plus-plus (make-interval 5 10))
 (define minus-plus (make-interval -5 10))
 (define minus-minus (make-interval -10 -5))
 
+; [+,+] x [?,?]
+(display "[+,+] x [?,?]")
 (mul-interval plus-plus plus-plus)
 (mul-interval plus-plus minus-plus)
 (mul-interval plus-plus minus-minus)
-
 (new-mul-interval plus-plus plus-plus)
 (new-mul-interval plus-plus minus-plus)
 (new-mul-interval plus-plus minus-minus)
+
+; [-,+] x [?,?]
+(display "[-,+] x [?,?]")
+(mul-interval minus-plus plus-plus)
+(mul-interval minus-plus minus-plus)
+(mul-interval minus-plus minus-minus)
+(new-mul-interval minus-plus plus-plus)
+(new-mul-interval minus-plus minus-plus)
+(new-mul-interval minus-plus minus-minus)
+
+; [-,-] x [?,?]
+(display "[-,-] x [?,?]")
+(mul-interval minus-minus plus-plus)
+(mul-interval minus-minus minus-plus)
+(mul-interval minus-minus minus-minus)
+(new-mul-interval minus-minus plus-plus)
+(new-mul-interval minus-minus minus-plus)
+(new-mul-interval minus-minus minus-minus)
